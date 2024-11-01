@@ -31,10 +31,10 @@
                 <label class="form-label" for="operation">Operation:</label>
                 <select name="operation" id="operation" class="form-control @error('operation') is-invalid @enderror" placeholder="Operation">
                     <option value="">-- Please select operation --</option>
-                    <option value="lowest" {{ old('operation') == 'lowest' ? "selected" : "" }}>Lowest (Min)</option>
-                    <option value="highest" {{ old('operation') == 'highest' ? "selected" : "" }}>Highest (Max)</option>
-                    <option value="average" {{ old('operation') == 'average' ? "selected" : "" }}>Average (Avg)</option>
-                    <option value="total" {{ old('operation') == 'total' ? "selected" : "" }}>Total (Sum)</option>
+                    <option value="min" {{ old('operation') == 'min' ? "selected" : "" }}>Lowest (Min)</option>
+                    <option value="max" {{ old('operation') == 'max' ? "selected" : "" }}>Highest (Max)</option>
+                    <option value="avg" {{ old('operation') == 'avg' ? "selected" : "" }}>Average (Avg)</option>
+                    <option value="sum" {{ old('operation') == 'sum' ? "selected" : "" }}>Total (Sum)</option>
                 </select>
                 @error('operation')
                     <span class="text-danger">{{ $message }}</span>
@@ -42,15 +42,58 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="entities">Entities/Set (separated by comma):</label>
+                <label class="form-label" for="currency">Currency:</label>
+                <select name="currency" id="currency" class="form-control @error('currency') is-invalid @enderror" placeholder="Currency">
+                    <option>-- Please select currency --</option>
+                    @foreach($currencies as $currency)
+                        <option value="{{ $currency->currency_iso_code }}" {{ old('currency') == $currency->currency_iso_code ? "selected" : "" }}>
+                            {{ $currency->currency_name }}
+                        </option>
+                        @endforeach
+                </select>
+                @error('currency')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="inputone">Input #1:</label>
                 <input 
                     type="text" 
-                    name="entities" 
-                    id="entities"
-                    class="form-control @error('entities') is-invalid @enderror" 
+                    name="inputone" 
+                    id="inputone"
+                    class="form-control @error('inputone') is-invalid @enderror" 
                     placeholder="Entities (Set)"
-                    value={{ old('entities')}}>
-                @error('entities')
+                    value={{ old('inputone')}}>
+                @error('inputone')
+                    <span class="text-danger">{{ $message }}</span>
+                @endif
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="inputtwo">Input #2:</label>
+                <input 
+                    type="text" 
+                    name="inputtwo" 
+                    id="inputtwo"
+                    class="form-control @error('inputtwo') is-invalid @enderror" 
+                    placeholder="Entities (Set)"
+                    value={{ old('inputtwo')}}>
+                @error('inputtwo')
+                    <span class="text-danger">{{ $message }}</span>
+                @endif
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="inputthree">Input #3:</label>
+                <input 
+                    type="text" 
+                    name="inputthree" 
+                    id="inputthree"
+                    class="form-control @error('inputthree') is-invalid @enderror" 
+                    placeholder="Entities (Set)"
+                    value={{ old('inputthree')}}>
+                @error('inputthree')
                     <span class="text-danger">{{ $message }}</span>
                 @endif
             </div>

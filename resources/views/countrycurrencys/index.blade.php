@@ -35,7 +35,7 @@
             <td>{{ $countrycurrency->currency->currency_name }}</td>
             <td>{{ $countrycurrency->currency->currency_symbol }}</td>
             <td>{{ $countrycurrency->currency_rate }}</td>
-            <td>{{ $countrycurrency->currency_rate }}</td>
+            <td>{{ $countrycurrency->formatted_currency_rate }}</td>
             <td>
                 <form action="{{ route('countrycurrencys.destroy',$countrycurrency->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('countrycurrencys.show',$countrycurrency->id) }}">Show</a>
