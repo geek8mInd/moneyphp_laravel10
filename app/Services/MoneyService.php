@@ -10,8 +10,13 @@ use Money\Exchange\FixedExchange;
 use Money\Formatter\IntlMoneyFormatter;
 class MoneyService {
 
-    public function __construct(){
+    public function __construct(private $currencies = null,
+        private $numberFormatter = null)
+    {
+        $this->currencies = new ISOCurrencies();
+        $this->numberFormatter = new \NumberFormatter('en_US', \NumberFormatter::CURRENCY);
     }
+
     public function transformToMoneyObject($amount = 0, $currency = 'USD'): Money
     {
         return Money::{$currency}($amount);
@@ -44,9 +49,7 @@ class MoneyService {
 
     public function formatMoney(Money $result)
     {
-        $currencies = new ISOCurrencies();
-        $numberFormatter = new \NumberFormatter('en_US', \NumberFormatter::CURRENCY);
-        $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies);
+        $moneyFormatter = new IntlMoneyFormatter($this->numberFormatter, $this->currencies);
         $result = $moneyFormatter->format($result);
 
         return $result;
@@ -73,6 +76,22 @@ class MoneyService {
 
         $result = Money::{$operation}($value1, $value2, $value3);
         
+        return $this->formatMoney($result);
+    }
+
+    public function calculateExchange($base_currency = '', $converting_currency = '', $conversion_ratio = 0, $amount = 0)
+    {
+        $exchange = new FixedExchange([
+            $base_currency => [
+                $converting_currency => $conversion_ratio
+            ]
+        ]);
+        
+        $converter = new Converter($this->currencies, $exchange);
+        
+        $amountToConvert = Money::{$base_currency}($amount);
+        $result = $converter->convert($amountToConvert, new Currency($converting_currency));
+
         return $this->formatMoney($result);
     }
 }

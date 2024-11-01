@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MoneyService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Currencies;
@@ -14,22 +15,37 @@ class ConversionController extends Controller
 
         return view('conversion.index', compact('currencies'));
     }
-    public function compute(Request $request): View
+    public function compute(Request $request, MoneyService $moneyService): View
     {
         $validatedData = $request->validate([
-            'currency' => 'required|integer',
-            'next_currency' => 'required|integer',
+            'currency' => 'required|max:3',
+            'next_currency' => 'required|max:3',
             'amount' => 'required',
+            'conversion_ratio' => 'required'
         ], [
             'currency.required' => 'Base Currency is required.',
-            'currency.integer' => 'Base Currency must be selected.',
-            'next_currency.required' => 'Convert To field must be provided.',
-            'next_currency.integer' => 'Convert To field must be provided.',
-            'amount.required' => 'Amount is required.',
+            'currency.max' => 'Base Currency must be selected.',
+            'next_currency.required' => 'Convert To field must be selected.',
+            'next_currency.max' => 'Convert To field must be selected.',
+            'amount.required' => 'Amount must be provided.',
+            'conversion_ratio.required' => 'Amount must be provided.',
         ]);
-        dump('compute');
-        dump($request->toArray());
-        exit;
-        return view('conversion.index');
+
+        $currencies = Currencies::orderBy('currency_name')->get();
+        $oldcurrency = $request->input('currency');
+        $next_currency = $request->input('next_currency');
+        $amount = $request->input('amount');
+        $conversion_ratio = $request->input('conversion_ratio');
+
+        $result = $moneyService->calculateExchange($oldcurrency, $next_currency, $conversion_ratio, $amount);
+
+        return view('conversion.compute', compact(
+            'currencies',
+            'oldcurrency',
+            'next_currency',
+            'amount',
+            'conversion_ratio',
+            'result'
+        ));
     }
 }
