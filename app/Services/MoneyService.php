@@ -12,6 +12,10 @@ class MoneyService {
 
     public function __construct(){
     }
+    public function transformToMoneyObject($amount = 0, $currency = 'USD'): Money
+    {
+        return Money::{$currency}($amount);
+    }
         
     public function calculateBasic($currency, $operation = "add", $value1 = 0, $value2 = 0) 
     {
@@ -38,7 +42,7 @@ class MoneyService {
         return $this->formatMoney($result);
     }
 
-    public function formatMoney($result)
+    public function formatMoney(Money $result)
     {
         $currencies = new ISOCurrencies();
         $numberFormatter = new \NumberFormatter('en_US', \NumberFormatter::CURRENCY);
@@ -56,16 +60,19 @@ class MoneyService {
         return $this->formatMoney($result);
     }
 
-    public function calculateAggregation($operation = 'sum', $sets = [], $currency = 'USD')
-    {
-        if (count($sets) == 0) return;
+    public function calculateAggregation($operation = 'sum',
+        $value1 = 0,
+        $value2 = 0,
+        $value3 = 0,
+        $currency = 'USD'
+    )
+    {    
+        $value1 = Money::{$currency}($value1);
+        $value2 = Money::{$currency}($value2);
+        $value3 = Money::{$currency}($value3);
 
-        $stringSetsArray = [];
-        foreach($sets as $value) {
-            $stringSetsArray[] = Money::{$currency}($value);
-        }
-        $stringSets = implode(",", $stringSetsArray);
+        $result = Money::{$operation}($value1, $value2, $value3);
         
-        return Money::{$operation}($stringSets);
+        return $this->formatMoney($result);
     }
 }

@@ -19,14 +19,34 @@ class AggregationController extends Controller
     {
         $validatedData = $request->validate([
             'operation' => 'required',
-            'entities' => 'required',
+            'currency' => 'required|max:3',
+            'inputone' => 'required',
+            'inputtwo' => 'required',
+            'inputthree' => 'required',
         ], [
             'operation.required' => 'Operation must be selected.',
-            'entities.required' => 'Entities or set must be provided as separated by comma.',
+            'currency.required' => 'Currency must be selected.',
+            'currency.max' => 'Currency must be selected.',
+            'inputone.required' => 'Input #1 must be provided.',
+            'inputtwo.required' => 'Input #2 must be provided.',
+            'inputthree.required' => 'Input #3 must be provided.',
         ]);
 
-        dump($moneyService->calculateAggregation('sum', $sets = [100, -200, 300], 'EUR'));
+        $result = $moneyService->calculateAggregation($request->input('operation'), 
+        $request->input('inputone'), 
+        $request->input('inputtwo'),
+        $request->input('inputthree'),
+        $request->input('currency'));
 
-        return view('aggregation.compute');
+        $currencies = Currencies::orderBy('currency_name')->get();
+
+        $oldcurrency = $request->input('currency');
+        $operation = $request->input('operation');
+        $inputone = $request->input('inputone');
+        $inputtwo = $request->input('inputtwo');
+        $inputthree = $request->input('inputthree');
+
+        return view('aggregation.compute', compact( 'currencies', 'operation', 'oldcurrency', 'inputone', 'inputtwo', 'inputthree', 'result'
+        ));
     }
 }
