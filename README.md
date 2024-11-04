@@ -1,6 +1,7 @@
 Installation Instructions:
 
-(PLEASE kindly view this file using Raw mode so line breaks can be nicely executed)
+(PLEASE kindly view this file using Raw mode so line breaks can be nicely executed, here is the link:
+https://raw.githubusercontent.com/geek8mInd/moneyphp_laravel10/refs/heads/main/README.md)
 
 1. Clone the repository link by invoking this command on the terminal:
 git clone https://github.com/geek8mInd/moneyphp_laravel10.git moneyphp_laravel10
