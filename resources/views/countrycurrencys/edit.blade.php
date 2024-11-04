@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Edit (Countries & Currencies)</h2>
+                <h2>Edit Currency</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('countrycurrencys.index') }}"> Back</a>
@@ -29,21 +29,6 @@
         @csrf
         @method('PUT')
          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Country:</strong>
-                    <select name="country_id" id="country_id" class="form-control" @readonly(true)>
-                        <option>Select Country:</option>
-                        @foreach($countries as $country)
-                            <option value="{{ $country->id }}" {{ ( $country->id == $countrycurrency->country_id) ? 'selected' : '' }}>
-                                {{ $country->country_name }}
-                            </option>
-                         @endforeach
-                    </select>
-                </div>
-
-            </div>
-
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Currency:</strong>

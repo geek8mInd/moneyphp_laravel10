@@ -6,10 +6,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Countries & Currencies</h2>
+                <h2>Currencies</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('countrycurrencys.create') }}"> Create New (Countries & Currencies)</a>
+                <a class="btn btn-success" href="{{ route('countrycurrencys.create') }}"> Create New Currency</a>
             </div>
         </div>
     </div>
@@ -21,7 +21,6 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Country</th>
             <th>Currency</th>
             <th>Symbol</th>
             <th>Rate</th>
@@ -31,7 +30,6 @@
         @foreach ($countrycurrencys as $countrycurrency)
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $countrycurrency->country->country_name }}</td>
             <td>{{ $countrycurrency->currency->currency_name }}</td>
             <td>{{ $countrycurrency->currency->currency_symbol }}</td>
             <td>{{ $countrycurrency->currency_rate }}</td>

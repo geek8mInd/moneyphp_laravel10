@@ -58,6 +58,20 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label" for="conversion_ratio">Conversion Ratio:</label>
+                <input 
+                    type="text" 
+                    name="conversion_ratio" 
+                    id="conversion_ratio"
+                    class="form-control @error('conversion_ratio') is-invalid @enderror" 
+                    placeholder="Conversion Ratio"
+                    value={{ old('conversion_ratio') }}>
+                @error('conversion_ratio')
+                    <span class="text-danger">{{ $message }}</span>
+                @endif
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label" for="amount">Amount:</label>
                 <input 
                     type="text" 
@@ -67,20 +81,6 @@
                     placeholder="Amount"
                     value={{ old('amount')}}>
                 @error('amount')
-                    <span class="text-danger">{{ $message }}</span>
-                @endif
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label" for="conversion_ratio">Conversion Ratio:</label>
-                <input 
-                    type="text" 
-                    name="conversion_ratio" 
-                    id="conversion_ratio"
-                    class="form-control @error('conversion_ratio') is-invalid @enderror" 
-                    placeholder="Conversion Ratio"
-                    value={{ old('conversion_ratio')}}>
-                @error('conversion_ratio')
                     <span class="text-danger">{{ $message }}</span>
                 @endif
             </div>
