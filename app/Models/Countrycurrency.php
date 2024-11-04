@@ -13,14 +13,9 @@ class Countrycurrency extends Model
     protected $table = "countrycurrency";
 
     protected $fillable = [
-        "country_id",
         "currency_id",
         "currency_rate"
     ];
-    public function country()
-    {
-        return $this->hasOne(Countries::class,"id","country_id");
-    }
     public function currency()
     {
         return $this->hasOne(Currencies::class,"id","currency_id");

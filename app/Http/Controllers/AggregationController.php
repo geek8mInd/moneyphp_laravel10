@@ -20,16 +20,19 @@ class AggregationController extends Controller
         $validatedData = $request->validate([
             'operation' => 'required',
             'currency' => 'required|max:3',
-            'inputone' => 'required',
-            'inputtwo' => 'required',
-            'inputthree' => 'required',
+            'inputone' => 'required|regex:/^[1-9]\d*(\.\d+)?$/',
+            'inputtwo' => 'required|regex:/^[1-9]\d*(\.\d+)?$/',
+            'inputthree' => 'required|regex:/^[1-9]\d*(\.\d+)?$/',
         ], [
             'operation.required' => 'Operation must be selected.',
             'currency.required' => 'Currency must be selected.',
             'currency.max' => 'Currency must be selected.',
             'inputone.required' => 'Input #1 must be provided.',
+            'inputone.regex' => 'Input #1 must must only contain numbers and decimal period.',
             'inputtwo.required' => 'Input #2 must be provided.',
+            'inputtwo.regex' => 'Input #2 must only contain numbers and decimal period.',
             'inputthree.required' => 'Input #3 must be provided.',
+            'inputthree.regex' => 'Input #3 must only contain numbers and decimal period.',
         ]);
 
         $result = $moneyService->calculateAggregation($request->input('operation'), 

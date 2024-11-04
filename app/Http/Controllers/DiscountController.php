@@ -20,13 +20,16 @@ class DiscountController extends Controller
     {
         $validatedData = $request->validate([
             'currency' => 'required|exists:currencies,currency_iso_code',
-            'discount_rate' => 'required|numeric|min:0|max:100',
-            'amount' => 'required',
+            'discount_rate' => 'required|numeric|min:0|max:100|regex:/^[1-9]\d*(\.\d+)?$/',
+                                                                     
+            'amount' => 'required|regex:/^[0-9]+(\.[0-9]*)?$/',
         ], [
             'currency.required' => 'Currency must be provided.',
             'discount_rate.required' => 'Discount Rate must be provided.',
             'discount_rate.integer' => 'Discount Rate must be an absolute value.',
+            'discount_rate.regex' => 'Discount Rate must must only contain numbers and decimal period.',
             'amount.required' => 'Amount is required.',
+            'amount.regex' => 'Amount must only contain numbers and decimal period.',
         ]);
 
         $result = $moneyService->calculateDiscount(

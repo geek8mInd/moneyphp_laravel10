@@ -20,13 +20,16 @@ class CalculatorController extends Controller
         $validatedData = $request->validate([
             'currency' => 'required|exists:currencies,currency_iso_code',
             'operation' => 'required',
-            'inputone' => 'required',
-            'inputtwo' => 'required',
+            'inputone' => 'required|regex:/^[1-9]\d*(\.\d+)?$/',
+            'inputtwo' => 'required|regex:/^[1-9]\d*(\.\d+)?$/',
         ], [
             'currency.required' => 'Currency must be selected.',
             'operation.required' => 'Operation must be selected.',
             'inputone.required' => '#1 Input is required.',
-            'inputtwo.required' => '#2 Input is required.'
+            'inputone.regex'=> '#1 Input must only contain numbers and decimal period',
+            'inputtwo.required' => '#2 Input is required.',
+            'inputtwo.regex'=> '#2 Input must only contain numbers and decimal period',
+            
         ]);
 
         $currencies = Currencies::orderBy('currency_name')->get();

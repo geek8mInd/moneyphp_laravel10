@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Countrycurrency;
-use App\Models\Countries;
 use App\Models\Currencies;
 
 class CountrycurrencyController extends Controller
@@ -16,7 +15,7 @@ class CountrycurrencyController extends Controller
      */
     public function index(): View
     {
-        $countrycurrencys = Countrycurrency::with("country", "currency")
+        $countrycurrencys = Countrycurrency::with("currency")
             ->latest()->paginate(20);
 
         return view('countrycurrencys.index',compact('countrycurrencys'))
@@ -28,10 +27,9 @@ class CountrycurrencyController extends Controller
      */
     public function create(): View
     {
-        $countries  = Countries::orderBy('country_name')->get();
         $currencies = Currencies::orderBy('currency_name')->get();
 
-        return view('countrycurrencys.create', compact('countries', 'currencies'));
+        return view('countrycurrencys.create', compact('currencies'));
     }
 
     /**
@@ -40,7 +38,6 @@ class CountrycurrencyController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'country_id'  => 'required|integer',
             'currency_id' => 'required|integer',
             'currency_rate' => 'required',
         ]);
@@ -64,10 +61,9 @@ class CountrycurrencyController extends Controller
      */
     public function edit(Countrycurrency $countrycurrency): View
     {
-        $countries  = Countries::orderBy('country_name')->get();
         $currencies = Currencies::orderBy('currency_name')->get();
 
-        return view('countrycurrencys.edit',compact('countrycurrency', 'countries', 'currencies'));
+        return view('countrycurrencys.edit',compact('countrycurrency', 'currencies'));
     }
 
     /**
@@ -76,7 +72,6 @@ class CountrycurrencyController extends Controller
     public function update(Request $request, Countrycurrency $countrycurrency): RedirectResponse
     {
         $request->validate([
-            'country_id' => 'required|integer',
             'currency_id' => 'required|integer',
             'currency_rate' => 'required',
         ]);

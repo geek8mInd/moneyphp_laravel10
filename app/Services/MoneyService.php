@@ -58,6 +58,7 @@ class MoneyService {
     public function calculateDiscount($discount = 0, $listPrice = 0, $currency = 'USD')
     {
         $result = (($discount/$listPrice)* 100);
+        $result = round($result, 2);
         $result = Money::{$currency}($result);
 
         return $this->formatMoney($result);
