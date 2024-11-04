@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('currency_rate', 50);
 
             $table->foreignId('currency_id')->constrained()->restrictOnDelete();
-            $table->foreignId('country_id')->constrained()->restrictOnDelete();
             $table->timestamps();
         });
     }
