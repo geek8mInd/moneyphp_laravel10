@@ -12,6 +12,7 @@ serve as the project folder for MoneyObject assignment.
 
    
 #---------- Start of the Content of .env file ------------
+
 APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:U15kts0CK/JfoscqEIN/dUUn6yIeAB6i6LcGOFBpPvk=
