@@ -70,9 +70,8 @@ VITE_PUSHER_HOST="${PUSHER_HOST}"
 VITE_PUSHER_PORT="${PUSHER_PORT}"
 VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
 VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+
 #-------------------- End of .env file -----------------------
-
-
 
 4. Using a console terminal, login to your MySQL
 Sample Command:
@@ -104,18 +103,23 @@ exit
 Note: This command will logged-out your MySQL session but definitely the MySQL
 service will be running in the background.
 
-8. On the project folder (i.e. ) moneyphp_laravel10 run this artisan command:
+8. On the project folder (i.e. moneyphp_laravel10), run this command to install all dependencies:
+composer install
+
+Note: This will create the /vendor folder and all libraries are to be enlisted here on per folder basis.
+
+9. On the project folder (i.e. moneyphp_laravel10) run this artisan command:
 php artisan migrate
 
 Note: This command will create the database tables through running the migration files.
 
-9. Next, on the project folder run this command to populate entries of `currencies` table:
+10. Next, on the project folder run this command to populate entries of `currencies` table:
 php artisan db:seed
 
 Note: This command will run the CurrenciesSeeder. A confirmation message will be displayed
 once the artisan command completed its job.
 
-10. Then, on the project folder run this command to display the MoneyObject project on your browser.
+11. Then, on the project folder run this command to display the MoneyObject project on your browser.
 php artisan serve
 
 Note: Usually this command will show the following message where default port is set to 8000 (see below)
@@ -123,8 +127,9 @@ Note: Usually this command will show the following message where default port is
 
   Press Ctrl+C to stop the server
 
-11. You can double click on the link, or just copy and paste it to your preferred browser.
-12. The MoneyObject has the following modules:
+12. You can double click on the link, or just copy and paste it to your preferred browser.
+
+The MoneyObject has the following modules:
 > Currencies
 > Calculator
 > Discount
