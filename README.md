@@ -9,6 +9,8 @@ serve as the project folder for MoneyObject assignment.
 2. On the project folder, create a new file and named it as .env
 
 3. Next, copy the content below and paste it on .env file
+
+   
 #---------- Start of the Content of .env file ------------
 APP_NAME=Laravel
 APP_ENV=local
@@ -70,16 +72,18 @@ VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
 VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 #-------------------- End of .env file -----------------------
 
-2. Using a console terminal, login to your MySQL
+
+
+4. Using a console terminal, login to your MySQL
 Sample Command:
 mysql -u<username> -p
 
 Note: If you are using windows, you can use the Windows Power Shell;
 
-3. Once logged-in to MySQL, create the database (as specified on DB_DATABASE entry above) by this command:
+5. Once logged-in to MySQL, create the database (as specified on DB_DATABASE entry above) by this command:
 create database laravel_money_db;
 
-4. To verify that the database is created, invoke this command.
+6. To verify that the database is created, invoke this command.
 show databases;
 
 You should be able to see `laravel_money_db` as one of the databases. (See #2nd entry below)
@@ -94,24 +98,24 @@ You should be able to see `laravel_money_db` as one of the databases. (See #2nd 
 +------------------------+
 9 rows in set (0.06 sec)
 
-5. Then exit on MySql console by this command:
+7. Then exit on MySql console by this command:
 exit
 
 Note: This command will logged-out your MySQL session but definitely the MySQL
 service will be running in the background.
 
-6. On the project folder (i.e. ) moneyphp_laravel10 run this artisan command:
+8. On the project folder (i.e. ) moneyphp_laravel10 run this artisan command:
 php artisan migrate
 
 Note: This command will create the database tables through running the migration files.
 
-7. Next, on the project folder run this command to populate entries of `currencies` table:
+9. Next, on the project folder run this command to populate entries of `currencies` table:
 php artisan db:seed
 
 Note: This command will run the CurrenciesSeeder. A confirmation message will be displayed
 once the artisan command completed its job.
 
-8. Then, on the project folder run this command to display the MoneyObject project on your browser.
+10. Then, on the project folder run this command to display the MoneyObject project on your browser.
 php artisan serve
 
 Note: Usually this command will show the following message where default port is set to 8000 (see below)
@@ -119,8 +123,8 @@ Note: Usually this command will show the following message where default port is
 
   Press Ctrl+C to stop the server
 
-9. You can double click on the link, or just copy and paste it to your preferred browser.
-10. The MoneyObject has the following modules:
+11. You can double click on the link, or just copy and paste it to your preferred browser.
+12. The MoneyObject has the following modules:
 > Currencies
 > Calculator
 > Discount
